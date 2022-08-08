@@ -2,6 +2,7 @@ package com.cos.photogramstart.domain.user;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,8 +26,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
 	
+	@Column(unique = true)
 	private String username;
 	private String password;
+	
 	
 	private String name;
 	private String website; // 웹사이트
