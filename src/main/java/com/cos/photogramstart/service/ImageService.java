@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.cos.photogramstart.config.auth.PrincipalDetails;
+import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.image.ImageRepository;
 import com.cos.photogramstart.web.dto.Image.ImageUploadDto;
 
@@ -27,14 +28,21 @@ public class ImageService {
 		
 		UUID uuid = UUID.randomUUID(); //uuid
 		String imageFileName = uuid+"_"+imageUploadDto.getFile().getOriginalFilename(); //1.jpg
-		System.out.println("imageFilename : " +imageFileName);
+		
 		Path ImageFilePath = Paths.get(uploadFolder+imageFileName);
-		System.out.println(ImageFilePath);
+		
 		
 		try {
 			Files.write(ImageFilePath, imageUploadDto.getFile().getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// image 테이블에 저장
+		
+		Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getUser());
+		Image imageEntity = imageRepository.save(image);
+		
+		System.out.println(imageEntity);
 	}
 }
