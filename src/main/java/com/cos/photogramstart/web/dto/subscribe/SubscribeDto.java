@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class SubscribeDto {
 
-	private int userId;
+	private int Id;
 	private String username;
 	private String profileImageUrl;
-	private Integer subscribeState;
+	private Integer subscribeState; //mariaDB는 Integer로 받아야하낟 True FALSE
 	private Integer equalUserState;
 }
