@@ -30,7 +30,7 @@ public class SubscribeService {
 		sb.append("if((SELECT 1 FROM subscribe WHERE fromUserId =? AND toUserId = u.id),1,0) subscribe, ");
 		sb.append("if((?=u.id),1,0) equalUserState ");
 		sb.append("FROM user u INNER JOIN subscribe s ");
-		sb.append("ON u.id = s.toUserID ");
+		sb.append("ON u.id = s.toUserId ");
 		sb.append("WHERE s.fromUserId =?");
 		
 		//쿼리 완성
