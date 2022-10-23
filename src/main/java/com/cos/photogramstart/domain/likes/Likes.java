@@ -37,6 +37,7 @@ public class Likes {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 번호 증가 전략이 데이터베이스를 따라간다
 	private int Id;
 	
+	//무한 참조됨
 	@JoinColumn(name = "imageId")
 	@ManyToOne //Many to One은 기본전략이 EAGER
 	private Image image;
