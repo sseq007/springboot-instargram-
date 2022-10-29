@@ -65,19 +65,22 @@ function getStoryItem(image) {
 				<p>${image.caption}</p>
 			</div>
 	
-			<div id="storyCommentList-${image.id}">
+			<div id="storyCommentList-${image.id}">`;
 	
-				<div class="sl__item__contents__comment" id="storyCommentItem-1"">
+				image.comments.forEach((comment)=>{
+					item+=`<div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}">
 					<p>
-						<b>Lovely :</b> 부럽습니다.
+						<b>${comment.user.username} :</b> ${comment.content}
 					</p>
 	
 					<button>
 						<i class="fas fa-times"></i>
 					</button>
+				</div>`;
+				});
+				
 	
-				</div>
-	
+			item+=`
 			</div>
 	
 			<div class="sl__item__input">
@@ -167,28 +170,31 @@ function addComment(imageId) {
 	}
 
 	$.ajax({
-		type:"post",
-		url:"/api/comment",
+		type: "post",
+		url: "/api/comment",
 		data: JSON.stringify(data),
-		contentType:"application/json; charset=utf-8",
-		dataType:"json"
+		contentType: "application/json; charset=utf-8",
+		dataType: "json"
+
+	}).done(res => {
+		//console.log("성공", res);
 		
-	}).done(res=>{
-		console.log("성공",res);
-	}).fail(error=>{
-		console.log("실패",error);
-	});
-	let content = `
-			  <div class="sl__item__contents__comment" id="storyCommentItem-2""> 
+		let comment = res.data;
+		let content = `
+			  <div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}"> 
 			    <p>
-			      <b>GilDong :</b>
-			      댓글 샘플입니다.
+			      <b>${comment.user.username} :</b>
+			      ${comment.content}
 			    </p>
 			    <button><i class="fas fa-times"></i></button>
 			  </div>
 	`;
-	commentList.prepend(content);
-	commentInput.val("");
+		commentList.prepend(content);
+	}).fail(error => {
+		console.log("실패", error);
+	});
+
+	commentInput.val("");//인풋 필드를 깨끗하게 비워준다.
 }
 
 // (5) 댓글 삭제

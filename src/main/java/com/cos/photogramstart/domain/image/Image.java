@@ -10,9 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
+import com.cos.photogramstart.domain.comment.Comment;
 import com.cos.photogramstart.domain.likes.Likes;
 import com.cos.photogramstart.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -48,6 +50,12 @@ public class Image {
 	
 	@Transient // DB에 컬럼이 만들어지지 않는다
 	 private boolean likeState;
+	
+	 //댓글
+	@OrderBy("id DESC")
+	@JsonIgnoreProperties({"image"})
+	@OneToMany(mappedBy="image") // foregin 키 연관관계의 주인이 아니다
+	private List<Comment> comments;
 	
 	@Transient
 	private int likeCount;

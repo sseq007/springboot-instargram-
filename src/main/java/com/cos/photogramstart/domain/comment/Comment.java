@@ -15,6 +15,7 @@ import javax.persistence.PrePersist;
 
 import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,7 @@ public class Comment {
 	@Column(length = 100,nullable = false)
 	private String content;
 	
+	@JsonIgnoreProperties({"images"})
 	@JoinColumn(name = "userId")
 	@ManyToOne(fetch = FetchType.EAGER) // defalt 값이 EAGER 딸려오는것이 하나이면 EAGER 딸려오는것이 많으면 LAZY
 	private User user;
