@@ -1,4 +1,4 @@
-# 포토그램 - 인스타그램 클론 코딩
+# 포토그램 - 인스타그램 유사 프로젝트
 
 ### 의존성
 
@@ -31,12 +31,6 @@
 </dependency>
 ```
 
-### 데이터베이스
-
-```sql
-create user 'cos'@'%' identified by 'cos1234';
-GRANT ALL PRIVILEGES ON *.* TO 'cos'@'%';
-create database photogram;
 ```
 
 ### yml 설정
